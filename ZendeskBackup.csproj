@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="backups\**" />
+    <Compile Remove="temp\**" />
+    <EmbeddedResource Remove="backups\**" />
+    <EmbeddedResource Remove="temp\**" />
+    <None Remove="backups\**" />
+    <None Remove="temp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+  </ItemGroup>
+
+</Project>
