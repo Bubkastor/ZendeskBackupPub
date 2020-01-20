@@ -40,7 +40,7 @@ namespace ZendeskBackup.Template
             file.Replace(H1_REPLACE, article.Title);
             file.Replace(CONTENT_REPLACE, content.ToString());
 
-            File.WriteAllText(path + "/index.html", file.ToString());
+            File.WriteAllText(path + "\\index.html", file.ToString());
         }
         public static void CreateSectionArticlesIndex(List<Section> sections, List<Article> articles, Dictionary<UInt64, string> pathById)
         {
@@ -67,7 +67,7 @@ namespace ZendeskBackup.Template
                 file.Replace(H1_REPLACE, $"Статьи рубрики {section.Name}");
                 file.Replace(CONTENT_REPLACE, content.ToString());
                 
-                File.WriteAllText(pathById[section.Id] + "/index.html", file.ToString());
+                File.WriteAllText(pathById[section.Id] + "\\index.html", file.ToString());
             }
 
         }
@@ -85,7 +85,7 @@ namespace ZendeskBackup.Template
                 foreach (var section in finSections)
                 {
                     content.AppendLine($"<li>");
-                    content.AppendLine($"<a href='{pathById[section.Id]}/index.html'>{section.Name}</a>");
+                    content.AppendLine($"<a href='{pathById[section.Id]}\\index.html'>{section.Name}</a>");
                     content.AppendLine($"</li>");
                 }
 
@@ -95,7 +95,7 @@ namespace ZendeskBackup.Template
                 file.Replace(H1_REPLACE, $"Категории {category.Name}");
                 file.Replace(CONTENT_REPLACE, content.ToString());
 
-                File.WriteAllText(pathById[category.Id] + "/index.html", file.ToString());
+                File.WriteAllText(pathById[category.Id] + "\\index.html", file.ToString());
             }
 
         }
@@ -106,7 +106,7 @@ namespace ZendeskBackup.Template
             foreach (var category in categories)
             {
                 content.AppendLine($"<li>");
-                content.AppendLine($"<a href='{pathById[category.Id]}/index.html'>{category.Name}</a>");
+                content.AppendLine($"<a href='{pathById[category.Id]}\\index.html'>{category.Name}</a>");
                 content.AppendLine($"</li>");
             }
             content.AppendLine($"</ul>");
@@ -116,7 +116,7 @@ namespace ZendeskBackup.Template
             file.Replace(H1_REPLACE, "Категории");
             file.Replace(CONTENT_REPLACE, content.ToString());
 
-            File.WriteAllText(path + "/index.html", file.ToString());
+            File.WriteAllText(path + "\\index.html", file.ToString());
         }
         
     }

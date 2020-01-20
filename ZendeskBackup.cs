@@ -43,7 +43,7 @@ namespace ZendeskBackup
             this.RestApi = new ZendeskRestApi(this.Config);
             BackupPathZip = backupFolder;
             CurrentDate = DateTime.Now.ToString("yyyy-MM-dd");
-            BackupPath = $"{BackupPathZip}{CurrentDate}/";
+            BackupPath = $"{BackupPathZip}{CurrentDate}\\";
         }
 
         public void Run()
@@ -129,11 +129,11 @@ namespace ZendeskBackup
             {
                 if (item.ContentType.StartsWith("image"))
                 {
-                    Directory.CreateDirectory(path + "/image");
+                    Directory.CreateDirectory(path + "\\image");
 
-                    var imagePath = $"./image/{item.Id}-{item.FileName}";
+                    var imagePath = $".\\image\\{item.Id}-{item.FileName}";
 
-                    var savePath = $"{path}/image/{item.Id}-{item.FileName}";
+                    var savePath = $"{path}\\image\\{item.Id}-{item.FileName}";
                     var replaceString = article.Body.Replace(item.ContentUrl, imagePath);
                     
                     if (!replaceString.Equals(article.Body))
@@ -175,7 +175,7 @@ namespace ZendeskBackup
             {
                 if (section.ParentSectionId == null)
                 {
-                    var path = $"{GetPathById[section.CategoryId]}/{IllegalInFileName.Replace(section.Name, " ")}";
+                    var path = $"{GetPathById[section.CategoryId]}\\{IllegalInFileName.Replace(section.Name, " ")}";
                     path = path.Trim();
                     Directory.CreateDirectory(path);
                     GetPathById.Add(section.Id, path);
@@ -194,7 +194,7 @@ namespace ZendeskBackup
                 {
                     var nameFolder = IllegalInFileName.Replace(article.Title, " ");
 
-                    path = $"{ GetPathById[(UInt64)article.SectionId] }/{nameFolder}";
+                    path = $"{ GetPathById[(UInt64)article.SectionId] }\\{nameFolder}";
                     path = path.Replace(".", " ");
                     path = path.Trim();
                 }
