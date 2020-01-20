@@ -8,7 +8,7 @@ namespace ZendeskBackup
 {
     public class BackupScheduler
     {
-        public static async void Start(ZendeskConfig config, string backupFolder)
+        public static async void Start(ZendeskConfig config, string backupFolder, bool runNow = false)
         {
             int initHour = 1;
             int initMinutes = 1;
@@ -33,15 +33,25 @@ namespace ZendeskBackup
                 .UsingJobData("backupFolder", backupFolder)
                 .Build();
 
-            ITrigger trigger = TriggerBuilder.Create()
-                //.StartAt(dateNightOffset)
+            ITrigger trigger;
+            if (runNow)
+            {
+                trigger = TriggerBuilder.Create()
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                    //.WithIntervalInHours(24)
-                    .WithIntervalInSeconds(10)
+                    .WithIntervalInHours(24)
                     .RepeatForever())
                 .Build();
-
+            }
+            else
+            {
+                trigger = TriggerBuilder.Create()
+                .StartAt(dateNightOffset)
+                .WithSimpleSchedule(x => x
+                    .WithIntervalInHours(24)
+                    .RepeatForever())
+                .Build();
+            }
             await scheduler.ScheduleJob(job, trigger);
         }
     }

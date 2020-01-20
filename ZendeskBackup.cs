@@ -33,7 +33,9 @@ namespace ZendeskBackup
         private string BackupPath { get; set; }
         private string BackupPathZip { get; set; }
         private string CurrentDate { get; set; }
-        
+        private string CurrentBackupPath { get; set; }
+
+
 
         public ZendeskBackup(ZendeskConfig config, string backupFolder)
         {
@@ -48,10 +50,10 @@ namespace ZendeskBackup
         {
             GetData();
             CreateStructure();
-            PrintDebug();
             FillStructure();
             CreateBackup();
             DeleteOldBackup();
+            PrintDebug();
 
         }
         private void PrintDebug()
@@ -60,6 +62,7 @@ namespace ZendeskBackup
             Console.WriteLine($"Categories count: {Categories.Count}");
             Console.WriteLine($"Sections count: {Sections.Count}");
             Console.WriteLine($"Attachments count: {Attachments.Count}");
+            Console.WriteLine($"Backup create. path: {CurrentBackupPath}");
             
         }
 
@@ -290,14 +293,14 @@ namespace ZendeskBackup
 
         public void CreateBackup()
         {
-            var backupPath = BackupPathZip + $"{CurrentDate}.zip";
+            CurrentBackupPath = BackupPathZip + $"{CurrentDate}.zip";
             try
             {
-                if (File.Exists(backupPath))
+                if (File.Exists(CurrentBackupPath))
                 {
-                    File.Delete(backupPath);
+                    File.Delete(CurrentBackupPath);
                 }
-                ZipFile.CreateFromDirectory(BackupPath, backupPath);
+                ZipFile.CreateFromDirectory(BackupPath, CurrentBackupPath);
                 Directory.Delete(BackupPath, true);
             }
             catch (Exception ex)
